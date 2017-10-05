@@ -1,4 +1,9 @@
-
+#!/bin/bash
+#
+# FullIPTV 2.0 / Installer 1.0
+# edited by maxdata755
+# maxdata755.online
+#
 apt-get update && apt-get upgrade -y
 #
 clear;
@@ -61,45 +66,16 @@ function setLocale {
 	locale-gen en_US.UTF-8  >> /dev/null 2>&1
 	export LANG="en_US.UTF-8" >> /dev/null 2>&1
 }
-# SET MIRRORS
-function setMirrors {
-	echo "deb http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME main restricted
-deb-src http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME main restricted
-deb http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME-updates main restricted
-deb-src http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME-updates main restricted
-deb http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME universe
-deb-src http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME universe
-deb http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME-updates universe
-deb-src http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME-updates universe
-deb http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME multiverse
-deb-src http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME multiverse
-deb http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME-updates multiverse
-deb-src http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME-updates multiverse
-deb http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME-backports main restricted universe multiverse
-deb-src http://ubuntu.mirrors.ovh.net/ftp.ubuntu.com/ubuntu/ $DISTRIB_CODENAME-backports main restricted universe multiverse
-deb http://security.ubuntu.com/ubuntu $DISTRIB_CODENAME-security main restricted
-deb-src http://security.ubuntu.com/ubuntu $DISTRIB_CODENAME-security main restricted
-deb http://security.ubuntu.com/ubuntu $DISTRIB_CODENAME-security universe
-deb-src http://security.ubuntu.com/ubuntu $DISTRIB_CODENAME-security universe
-deb http://security.ubuntu.com/ubuntu $DISTRIB_CODENAME-security multiverse
-deb-src http://security.ubuntu.com/ubuntu $DISTRIB_CODENAME-security multiverse
-deb http://cdn.fulliptv.com/medibuntu/ $DISTRIB_CODENAME free non-free
-deb-src http://cdn.fulliptv.com/medibuntu/ $DISTRIB_CODENAME free non-free
-	" > /etc/apt/sources.list
-	if [[ "$DISTRIB_CODENAME" = "trusty" ]]; then
-		echo "" >> /dev/null
-	else
-	fi
-}
+
 
 # install base packages
 function installBase {
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive dpkg --configure -a >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get update -y -q >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive dpkg --configure -a >> /dev/null 2>&1
-        LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install libjansson-dev -q -y --force-yes >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get -y --force-yes -q install lsb-release apt-utils aptitude apt software-properties-common curl mtr debconf html2text wget whois whiptail vim-nox unzip tzdata sudo sysstat strace sshpass ssh-import-id tcpdump telnet screen python-software-properties python openssl ntpdate mc iptraf mailutils mlocate mtr htop gcc fuse ftp dnsutils ethtool curl dbconfig-common coreutils debianutils debconf bc bash-completion automake autoconf bwm-ng apt-utils aptitude apt git software-properties-common dos2unix dialog curl >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive dpkg --configure -a >> /dev/null 2>&1
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive dpkg --configure -a 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get update -y -q 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive dpkg --configure -a 
+        LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install libjansson-dev -q -y --force-yes 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get -y --force-yes -q install lsb-release apt-utils aptitude apt software-properties-common curl mtr debconf html2text wget whois whiptail vim-nox unzip tzdata sudo sysstat strace sshpass ssh-import-id tcpdump telnet screen python-software-properties python openssl ntpdate mc iptraf mailutils mlocate mtr htop gcc fuse ftp dnsutils ethtool curl dbconfig-common coreutils debianutils debconf bc bash-completion automake autoconf bwm-ng apt-utils aptitude apt git software-properties-common dos2unix dialog curl 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive dpkg --configure -a 
 }
 
 
@@ -117,8 +93,8 @@ function updateSSHPassword {
 function installDatabase {
 	if [ "$ISCMS" = "1" ]; then
 		if [ -z `psql -U postgres -l -A -t | grep fulliptvxx` ]; then
-			psql -U postgres -c "CREATE DATABASE fulliptvxx" >> /dev/null 2>&1
-			psql -U postgres fulliptvxx < /opt/fulliptv/lib/fulliptv.sql >> /dev/null 2>&1
+			psql -U postgres -c "CREATE DATABASE fulliptvxx" 
+			psql -U postgres fulliptvxx < /opt/fulliptv/lib/fulliptv.sql 
 		else
 			echo "${BCyan}Database found, skipping installing initial database...${Reset}";
 		fi
@@ -136,10 +112,10 @@ function addServer {
 	fi
 }
 function addServerToDatabase {
-	CHK=`PGPASSWORD="Pass22pp2019ssh808" psql -U postgres -h $CMSURL fulliptvxx -A -t -c "SELECT id FROM servers WHERE server_host = '$SERVERNAME'"` >> /dev/null 2>&1
+	CHK=`PGPASSWORD="Pass22pp2019ssh808" psql -U postgres -h $CMSURL fulliptvxx -A -t -c "SELECT id FROM servers WHERE server_host = '$SERVERNAME'"` 
 	if [ -z "$CHK" ]; then
 		SERVERPORT=`cat /etc/ssh/sshd_config | grep "Port " | cut -d" " -f2`
-		PGPASSWORD="Pass22pp2019ssh808" psql -U postgres -h $CMSURL fulliptvxx -A -t -c "INSERT INTO servers ( server_name, server_host, server_ip, server_private_ip, server_port, server_upload, server_download, server_max_clients, server_max_channels, active, status, server_auth ) VALUES ( '$SERVERNAME', '$SERVERNAME', '$SERVERIP', '$SERVERINTIP', '$SERVERPORT', '1000', '1000', '1000', '1000', 't', 't', '${NPASS}' )" >> /dev/null 2>&1
+		PGPASSWORD="Pass22pp2019ssh808" psql -U postgres -h $CMSURL fulliptvxx -A -t -c "INSERT INTO servers ( server_name, server_host, server_ip, server_private_ip, server_port, server_upload, server_download, server_max_clients, server_max_channels, active, status, server_auth ) VALUES ( '$SERVERNAME', '$SERVERNAME', '$SERVERIP', '$SERVERINTIP', '$SERVERPORT', '1000', '1000', '1000', '1000', 't', 't', '${NPASS}' )" 
 		echo -e "${BGreen}Server added to the CMS !${Reset}";
 	else
 		echo -e "${BGreen}This server is already added to the CMS !${Reset}";
@@ -151,7 +127,7 @@ function updateServerDatabasePass {
 }
 
 function writeConfig {
-	mkdir -p /opt/fulliptv/etc/ >> /dev/null 2>&1
+	mkdir -p /opt/fulliptv/etc/ 
 	echo "CMSURL=$CMSURL" > /opt/fulliptv/etc/fulliptv.conf
 	echo "CMSPORT=$CMSPORT" >> /opt/fulliptv/etc/fulliptv.conf
 	echo "SERVERNAME=$SERVERNAME" >> /opt/fulliptv/etc/fulliptv.conf	
@@ -163,23 +139,21 @@ function writeConfig {
 
 function upgradeFiles {
 	if [ "$ISCMS" = "1" ]; then
-		wget -O /tmp/fulliptv.tgz https://raw.githubusercontent.com/haco1971/full-iptv2.0inst/master/fulliptv-cms.tgz >> /dev/null 2>&1
-		tar xzvf /tmp/fulliptv.tgz -C /opt >> /dev/null 2>&1
-		rm -rf /tmp/fulliptv.tgz >> /dev/null 2>&1
+		tar xzvf /tmp/fulliptv-cms.tgz -C /opt 
+		rm -rf /tmp/fulliptv-cms.tgz 
 	fi
 	if [ "$ISSTREAMER" = "1" ]; then
-		wget -O /tmp/fulliptv.tgz https://raw.githubusercontent.com/haco1971/full-iptv2.0inst/master/fulliptv-streamer.tgz >> /dev/null 2>&1
-		tar xzvf /tmp/fulliptv.tgz -C /opt >> /dev/null 2>&1
-		rm -rf /tmp/fulliptv.tgz >> /dev/null 2>&1
+		tar xzvf /tmp/fulliptv-streamer.tgz -C /opt 
+		rm -rf /tmp/fulliptv-streamer.tgz 
 	fi
 }
 
 function installCMSPackages {
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive dpkg --configure -a >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install php5-fpm php5-mcrypt php5-pgsql php5-cli php5-curl php5-gd php-pear libssh2-php php5-json libxslt1.1 daemontools postgresql-client -q -y --force-yes >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install libva1 libxfixes3 libxext6 libasound2 libsdl1.2debian libtheora0 libmp3lame0 libass4 libvdpau1 daemontools postgresql-client apache2 php5 libapache2-mod-php5 -q -y --force-yes >> /dev/null 2>&1
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive dpkg --configure -a 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install php5-fpm php5-mcrypt php5-pgsql php5-cli php5-curl php5-gd php-pear libssh2-php php5-json libxslt1.1 daemontools postgresql-client -q -y --force-yes 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install libva1 libxfixes3 libxext6 libasound2 libsdl1.2debian libtheora0 libmp3lame0 libass4 libvdpau1 daemontools postgresql-client apache2 php5 libapache2-mod-php5 -q -y --force-yes 
 	if [ "$DISTRIB_CODENAME" != "trusty" ]; then
-		LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install postgresql-9.1 -y --force-yes >> /dev/null 2>&1
+		LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install postgresql-9.1 -y --force-yes 
 		echo -e "local all postgres trust\n" > /etc/postgresql/9.1/main/pg_hba.conf
 		echo -e "local all all trust\n" >> /etc/postgresql/9.1/main/pg_hba.conf
 		echo -e "host all all 127.0.0.1/32 trust\n" >> /etc/postgresql/9.1/main/pg_hba.conf
@@ -187,7 +161,7 @@ function installCMSPackages {
 		# echo -e "host all all 0.0.0.0/0 md5\n" >> /etc/postgresql/9.1/main/pg_hba.conf
 		echo -e "listen_addresses = '*'\n" >> /etc/postgresql/9.1/main/postgresql.conf
 	else
-		LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install postgresql-9.3 -y --force-yes >> /dev/null 2>&1
+		LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install postgresql-9.3 -y --force-yes 
 		echo -e "local all postgres trust\n" > /etc/postgresql/9.3/main/pg_hba.conf
 		echo -e "local all all trust\n" >> /etc/postgresql/9.3/main/pg_hba.conf
 		echo -e "host all all 127.0.0.1/32 trust\n" >> /etc/postgresql/9.3/main/pg_hba.conf
@@ -200,18 +174,18 @@ function installCMSPackages {
 }
 
 function installStreamerPackages {
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive dpkg --configure -a >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install daemontools postgresql-client x264 -q -y --force-yes >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get purge -y --force-yes -qq vlc-data vlc-nox vlc >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get autoremove -y --force-yes -qq >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes -qq ubuntu-restricted-extras >> /dev/null 2>&1
-	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get update >> /dev/null 2>&1
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive dpkg --configure -a 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install daemontools postgresql-client x264 -q -y --force-yes 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get purge -y --force-yes -qq vlc-data vlc-nox vlc 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get autoremove -y --force-yes -qq 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes -qq ubuntu-restricted-extras 
+	LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get update 
 	if [ "$DISTRIB_CODENAME" = "saucy" ]; then
-		LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes -qq vlc-nox vlc ffmpeg non-free-codecs x264 php5 php5-mcrypt >> /dev/null 2>&1
+		LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes -qq vlc-nox vlc ffmpeg non-free-codecs x264 php5 php5-mcrypt 
 	elif [ "$DISTRIB_CODENAME" = "trusty" ]; then
-		LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes -qq vlc-nox vlc x264 php5 php5-mcrypt >> /dev/null 2>&1
+		LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes -qq vlc-nox vlc x264 php5 php5-mcrypt 
 	else 
-		LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes -qq vlc-nox vlc ffmpeg non-free-codecs x264 php5 php5-mcrypt >> /dev/null 2>&1
+		LANG=en_US.UTF-8 DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes -qq vlc-nox vlc ffmpeg non-free-codecs x264 php5 php5-mcrypt 
 	fi
 
 	setupMcrypt;
@@ -226,17 +200,17 @@ function setupCMS {
         if [ -z "$CHKZEND" ]; then
                 echo "zend_extension=/opt/fulliptv/lib/ioncube/ioncube_loader_lin_5.5.so" >> /etc/php5/cli/php.ini
         fi
-        apt-get install -y --force-yes apache2 -q >> /dev/null 2>&1
-        /etc/init.d/nginx stop >> /dev/null 2>&1
-        cp -R /etc/php5/conf.d/* /etc/php5/apache2/conf.d/ >> /dev/null 2>&1
-        cp -R /etc/php5/conf.d/* /etc/php5/cli/conf.d/ >> /dev/null 2>&1
-        php5enmod ssh2 >> /dev/null 2>&1
-        php5enmod mcrypt >> /dev/null 2>&1
-        a2enmod rewrite >> /dev/null 2>&1
+        apt-get install -y --force-yes apache2 -q 
+        /etc/init.d/nginx stop 
+        cp -R /etc/php5/conf.d/* /etc/php5/apache2/conf.d/ 
+        cp -R /etc/php5/conf.d/* /etc/php5/cli/conf.d/ 
+        php5enmod ssh2 
+        php5enmod mcrypt 
+        a2enmod rewrite 
 
-        killall -9 nginx >> /dev/null 2>&1
-        killall -9 php5-fpm >> /dev/null 2>&1
-        killall -9 php-fpm >> /dev/null 2>&1
+        killall -9 nginx 
+        killall -9 php5-fpm 
+        killall -9 php-fpm 
 	echo "Listen $CMSPORT" > /etc/apache2/ports.conf
         echo "<VirtualHost *:$CMSPORT>
         ServerAdmin info@fulliptv.com
@@ -257,52 +231,52 @@ function setupCMS {
         CustomLog \${APACHE_LOG_DIR}/${CMSURL}-access.log combined
 </VirtualHost>
 " > /etc/apache2/sites-enabled/000-default.conf
-        /etc/init.d/apache2 restart >> /dev/null 2>&1
+        /etc/init.d/apache2 restart 
         CHKRC=`cat /etc/crontab | grep fulliptv`
         if [ -z "$CHKRC" ]; then
-                echo "*/5 * * * * root wget -O /dev/null \"http://${CMSURL}/cron.php\" >> /dev/null 2>&1" >> /etc/crontab
+                echo "*/5 * * * * root wget -O /dev/null \"http://${CMSURL}/cron.php\" " >> /etc/crontab
         fi
-        psql -U postgres fulliptvxx -c "UPDATE settings SET config_value = '$CMSVER' WHERE config_name = 'current_version' OR config_name = 'new_version'" >> /dev/null 2>&1
+        psql -U postgres fulliptvxx -c "UPDATE settings SET config_value = '$CMSVER' WHERE config_name = 'current_version' OR config_name = 'new_version'" 
 }	
 function setupMcrypt {
-	php5enmod mcrypt >> /dev/null 2>&1
-        cp -R /etc/php5/conf.d/* /etc/php5/apache2/conf.d/ >> /dev/null 2>&1
-        cp -R /etc/php5/conf.d/* /etc/php5/cli/conf.d/ >> /dev/null 2>&1
+	php5enmod mcrypt 
+        cp -R /etc/php5/conf.d/* /etc/php5/apache2/conf.d/ 
+        cp -R /etc/php5/conf.d/* /etc/php5/cli/conf.d/ 
 }
 
 
 function setupStreamer {
-        cp -R /etc/php5/conf.d/* /etc/php5/apache2/conf.d/ >> /dev/null 2>&1
-        cp -R /etc/php5/conf.d/* /etc/php5/cli/conf.d/ >> /dev/null 2>&1
-        php5enmod mcrypt >> /dev/null 2>&1
-	( killall -9 hitrow vlc supervise ; supervise /opt/fulliptv/bin & ) >> /dev/null 2>&1
+        cp -R /etc/php5/conf.d/* /etc/php5/apache2/conf.d/ 
+        cp -R /etc/php5/conf.d/* /etc/php5/cli/conf.d/ 
+        php5enmod mcrypt 
+	( killall -9 hitrow vlc supervise ; supervise /opt/fulliptv/bin & ) 
 	CHKRC=`cat /etc/rc.local | grep fulliptv`
 	if [ -z "$CHKRC" ]; then
-		echo "( killall -9 hitrow vlc supervise ; supervise /opt/fulliptv/bin & ) >> /dev/null 2>&1" > /etc/rc.local
+		echo "( killall -9 hitrow vlc supervise ; supervise /opt/fulliptv/bin & ) " > /etc/rc.local
 	fi
 }
 
 function cleanUp {
 	# Remove any temp data or package data.
 	if [ "$ISSTREAMER" = "1" ]; then
-		/etc/init.d/apache2 stop >> /dev/null 2>&1
-		( killall -9 hitrow vlc supervise ; supervise /opt/fulliptv/bin & ) >> /dev/null 2>&1
+		/etc/init.d/apache2 stop 
+		( killall -9 hitrow vlc supervise ; supervise /opt/fulliptv/bin & ) 
 	fi
 	if [ "$ISCMS" = "1" ]; then
-		/etc/init.d/apache2 start >> /dev/null 2>&1
+		/etc/init.d/apache2 start 
 	fi
-	apt-get purge -y --force-yes fulliptv nginx -q >> /dev/null 2>&1
+	apt-get purge -y --force-yes fulliptv nginx -q 
 	
-        /etc/init.d/nginx stop >> /dev/null 2>&1
-	killall -9 php5-fpm >> /dev/null 2>&1
-	killall -9 php-fpm >> /dev/null 2>&1
-	killall -9 nginx >> /dev/null 2>&1
-	rm -rf /opt/fulliptv/lib/fulliptv.sql >> /dev/null 2>&1
-	rm -rf /opt/fulliptv/lib/nginx* >> /dev/null 2>&1
-	rm -rf /tmp/fulliptv* >> /dev/null 2>&1
-	mkdir /opt/fulliptv/vod >> /dev/null 2>&1
-	chown -R www-data:www-data /opt/fulliptv >> /dev/null 2>&1
-	chmod -R 777 /opt/fulliptv/vod >> /dev/null 2>&1
+        /etc/init.d/nginx stop 
+	killall -9 php5-fpm 
+	killall -9 php-fpm 
+	killall -9 nginx 
+	rm -rf /opt/fulliptv/lib/fulliptv.sql 
+	rm -rf /opt/fulliptv/lib/nginx* 
+	rm -rf /tmp/fulliptv* 
+	mkdir /opt/fulliptv/vod 
+	chown -R www-data:www-data /opt/fulliptv 
+	chmod -R 777 /opt/fulliptv/vod 
 	wget -O /dev/null "http://cdn.fulliptv.com/install.php?cmsurl=$CMSURL&servername=$SERVERNAME&serverip=$SERVERIP&serverintip=$SERVERINTIP&iscms=$ISCMS&isstreamer=$ISSTREAMER" > /dev/null 2>&1
 	
 }
@@ -311,16 +285,13 @@ function cleanUp {
 ### STARTING PROPER SCRIPT ### 
 tweakSystem;
 setLocale;
-setMirrors;
 installBase;
 
-# Gathering latest version of software
-CMSVER=`curl -s "http://cdn.fulliptv.com/VERSION" | xargs`
-HITVER=`curl -s "http://cdn.fulliptv.com/HITROWVERSION" | xargs`
+
 
 # UPGARDE IF EXISTING INSTALLATION
 if [ -f /opt/fulliptv/etc/fulliptv.conf ]; then
-	. /opt/fulliptv/etc/fulliptv.conf >> /dev/null 2>&1
+	. /opt/fulliptv/etc/fulliptv.conf 
 	if [ -z "$CMSPORT" ]; then
 		CMSPORT="80"
 	fi
@@ -341,7 +312,7 @@ if [ -f /opt/fulliptv/etc/fulliptv.conf ]; then
 	if [ "$ISCMS" = "1" ]; then
 		# UPDATE CMS
 		echo -e "${BGreen}Updating CMS${Reset}";
-        	psql -U postgres fulliptvxx -c "UPDATE settings SET config_value = '$CMSVER' WHERE config_name = 'current_version' OR config_name = 'new_version'" >> /dev/null 2>&1
+        	psql -U postgres fulliptvxx -c "UPDATE settings SET config_value = '$CMSVER' WHERE config_name = 'current_version' OR config_name = 'new_version'" 
 	fi
 	if [ "$ISSTREAMER" = "1" ]; then
 		# UPDATE STREAMER
