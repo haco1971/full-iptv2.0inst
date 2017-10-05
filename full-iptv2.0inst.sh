@@ -1,14 +1,5 @@
 #!/bin/bash
-#
-# FullIPTV 2.0 / Installer 1.0
-# edited by maxdata755
-# maxdata755.online
-#
-apt-get update && apt-get upgrade -y
-#
-clear;
-# clear;
-# Reset
+
 Reset='\e[0m'       # Text Reset
 # Regular Colors
 Black='\e[0;30m'        # Black
@@ -29,43 +20,12 @@ BPurple='\e[1;35m'      # Purple
 BCyan='\e[1;36m'        # Cyan
 BWhite='\e[1;37m'       # White
 
-# Tweak nameservers
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
-# Get distro data
-. /etc/lsb-release >> /var/log/fulliptv-install.log 2>&1
-if [ "$DISTRIB_ID" != "Ubuntu" ]; then
-        echo -e "ERROR: This system requires Ubuntu distro only !";
-        exit 1;
-else
-        if [[ "$DISTRIB_CODENAME" = "trusty" || "$DISTRIB_CODENAME" = "saucy" || "$DISTRIB_CODENAME" = "quantal" || "$DISTRIB_CODENAME" = "precise" || "$DISTRIB_CODENAME" = "raring" ]]; then
-		X=1
-        else
-                echo -e "ERROR: This system requires Ubuntu ( 12.04, 13.04, 13.10, 14.04 ) distro only !";
-                exit 1;
-        fi
-fi
+
 
 echo -e "${BCyan}Checking your system...... [OK]${Reset}\n";
 
-# TWEAK SYSTEM VALUES
-function tweakSystem {
-	dpkg --remove-architecture i386 >> /dev/null 2>&1
-	echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
-	echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
-	echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
-	echo "fs.file-max = 32768" >> /etc/sysctl.conf
-	echo "kern.maxfiles = 32768" >> /etc/sysctl.conf
-	echo "kern.maxfilesperproc = 32768" >> /etc/sysctl.conf
-	echo "kernel.core_uses_pid = 1" >> /etc/sysctl.conf
-	echo "kernel.core_pattern = /var/crash/core-%e-%s-%u-%g-%p-%t" >> /etc/sysctl.conf
-	echo "fs.suid_dumpable = 2" >> /etc/sysctl.conf
-	sysctl -p >> /dev/null 2>&1
-}
-# SET LOCALE TO UTF-8
-function setLocale {
-	locale-gen en_US.UTF-8  >> /dev/null 2>&1
-	export LANG="en_US.UTF-8" >> /dev/null 2>&1
-}
+
+
 
 
 # install base packages
