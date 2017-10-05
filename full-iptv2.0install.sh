@@ -1,9 +1,4 @@
-#!/bin/bash
-#
-# FullIPTV 2.0 / Installer 1.0
-# edited by maxdata755
-# maxdata755.online
-#
+
 apt-get update && apt-get upgrade -y
 #
 clear;
