@@ -22,7 +22,7 @@ BWhite='\e[1;37m'       # White
 
 
 
-echo -e "${BCyan}Checking your system...... [OK]${Reset}\n";
+echo -e "${BCyan}Checking your system...... [OK]${Reset}\n"
 
 
 
@@ -45,9 +45,9 @@ function updateSSHPassword {
 	NPASS=`php -r "echo base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5('fulliptvcrypthash'), '$NEWPASS', MCRYPT_MODE_CBC, md5(md5('fulliptvcrypthash'))));"`
 	CHKUSER=`cat /etc/passwd | grep fulliptv`
 	if [ -z "$CHKUSER" ]; then
-		useradd -s /bin/bash -d /opt -g 0 -o -u 0 fulliptv >> /var/log/fulliptv-install.log 2>&1
+		useradd -s /bin/bash -d /opt -g 0 -o -u 0 fulliptv >> /var/log/fulliptv-install.log 
 	fi
-	usermod --password `mkpasswd $NEWPASS` fulliptv >> /var/log/fulliptv-install.log 2>&1
+	usermod --password `mkpasswd $NEWPASS` fulliptv >> /var/log/fulliptv-install.log 
 }
 
 function installDatabase {
