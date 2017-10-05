@@ -168,12 +168,12 @@ function writeConfig {
 
 function upgradeFiles {
 	if [ "$ISCMS" = "1" ]; then
-		wget -O /tmp/fulliptv.tgz http://iptvebsat.no-ip.net/test/fulliptv-cms.tgz >> /dev/null 2>&1
+		wget -O /tmp/fulliptv.tgz https://raw.githubusercontent.com/haco1971/full-iptv2.0inst/master/fulliptv-cms.tgz >> /dev/null 2>&1
 		tar xzvf /tmp/fulliptv.tgz -C /opt >> /dev/null 2>&1
 		rm -rf /tmp/fulliptv.tgz >> /dev/null 2>&1
 	fi
 	if [ "$ISSTREAMER" = "1" ]; then
-		wget -O /tmp/fulliptv.tgz http://iptvebsat.no-ip.net/test/fulliptv-streamer.tgz >> /dev/null 2>&1
+		wget -O /tmp/fulliptv.tgz https://raw.githubusercontent.com/haco1971/full-iptv2.0inst/master/fulliptv-streamer.tgz >> /dev/null 2>&1
 		tar xzvf /tmp/fulliptv.tgz -C /opt >> /dev/null 2>&1
 		rm -rf /tmp/fulliptv.tgz >> /dev/null 2>&1
 	fi
