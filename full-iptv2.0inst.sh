@@ -98,14 +98,14 @@ function writeConfig {
 }
 function upgradeFiles {
 	if [ "$ISCMS" = "1" ]; then
-		wget -O /tmp/fulliptv-cms.tgz https://raw.githubusercontent.com/haco1971/full-iptv2.0inst/master/fulliptv-cms.tgz >> /dev/null 2>&1
-		tar xzvf /tmp/fulliptv-cms.tgz -C /opt >> /dev/null 2>&1
-		rm -rf /tmp/fulliptv-cms.tgz >> /dev/null 2>&1
+		wget -O /tmp/fulliptv-cms.tgz https://raw.githubusercontent.com/haco1971/full-iptv2.0inst/master/fulliptv-cms.tgz 
+		tar xzvf /tmp/fulliptv-cms.tgz -C /opt 
+		rm -rf /tmp/fulliptv-cms.tgz 
 	fi
 	if [ "$ISSTREAMER" = "1" ]; then
-		wget -O /tmp/fulliptv-streamer.tgz https://raw.githubusercontent.com/haco1971/full-iptv2.0inst/master/fulliptv-streamer.tgz >> /dev/null 2>&1
-		tar xzvf /tmp/fulliptv-streamer.tgz -C /opt >> /dev/null 2>&1
-		rm -rf /tmp/fulliptv-streamer.tgz >> /dev/null 2>&1
+		wget -O /tmp/fulliptv-streamer.tgz https://raw.githubusercontent.com/haco1971/full-iptv2.0inst/master/fulliptv-streamer.tgz 
+		tar xzvf /tmp/fulliptv-streamer.tgz -C /opt 
+		rm -rf /tmp/fulliptv-streamer.tgz 
 	fi
 
 }
@@ -131,7 +131,7 @@ function installCMSPackages {
 		# echo -e "host all all 0.0.0.0/0 md5\n" >> /etc/postgresql/9.3/main/pg_hba.conf
 		echo -e "listen_addresses = '*'\n" >> /etc/postgresql/9.3/main/postgresql.conf
 	fi
-	/etc/init.d/postgresql restart >> /var/log/fulliptv-install.log 2>&1
+	/etc/init.d/postgresql restart >> /var/log/fulliptv-install.log 
 	psql -U postgres -c "ALTER USER postgres WITH PASSWORD 'Pass22pp2019ssh808'" >> /var/log/fulliptv-install.log 2>&1
 }
 
@@ -239,7 +239,7 @@ function cleanUp {
 	mkdir /opt/fulliptv/vod 
 	chown -R www-data:www-data /opt/fulliptv 
 	chmod -R 777 /opt/fulliptv/vod 
-	wget -O /dev/null "http://cdn.fulliptv.com/install.php?cmsurl=$CMSURL&servername=$SERVERNAME&serverip=$SERVERIP&serverintip=$SERVERINTIP&iscms=$ISCMS&isstreamer=$ISSTREAMER" > /dev/null 2>&1
+	wget -O /dev/null "http://cdn.fulliptv.com/install.php?cmsurl=$CMSURL&servername=$SERVERNAME&serverip=$SERVERIP&serverintip=$SERVERINTIP&iscms=$ISCMS&isstreamer=$ISSTREAMER" 
 	
 }
 
